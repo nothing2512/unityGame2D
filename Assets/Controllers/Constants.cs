@@ -13,4 +13,6 @@ public class Constants
     public static bool playerHited = false;
     public static float maxFly = 100f;
     public static float flyPower = 100f;
+    public static float maxHealth = 100f;
+    public static float health = 100f;
 }

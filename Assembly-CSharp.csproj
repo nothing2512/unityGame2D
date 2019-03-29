@@ -62,6 +62,7 @@
   <ItemGroup>
     <Compile Include="Assets\Controllers\Constants.cs" />
     <Compile Include="Assets\Controllers\GhostMovement.cs" />
+    <Compile Include="Assets\Controllers\Menu.cs" />
     <Compile Include="Assets\Controllers\PlayerMovement.cs" />
     <Reference Include="Cinemachine">
       <HintPath>C:/Users/cak robet/Documents/Workshop ILMATETTA/unity/Hello World/Library/ScriptAssemblies/Cinemachine.dll</HintPath>

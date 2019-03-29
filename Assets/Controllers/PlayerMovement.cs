@@ -7,6 +7,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -18,6 +19,11 @@ public class PlayerMovement : MonoBehaviour
     public Transform groundPoint;
     public LayerMask groundLayer;
     public Animator animator;
+    public GameObject option;
+    public Text message;
+    public GameObject playerProperties;
+    public Slider healthBar;
+    public Slider flyBar;
 
     public float speed = 2f;
     public float jumpForce = 6f;
@@ -25,13 +31,32 @@ public class PlayerMovement : MonoBehaviour
     private bool onJump = false;
     private float mDir = 1;
     private bool onFly = false;
+    private float counter = 0;
+    private float countDown;
 	
-	private void start() {
+	private void Start() {
+
+        // set gamestate to play
         Constants.gameState = Constants.GameState.Play;
+
+        // set option to hide
+        option.active = false;
+
+        // set player properties to show
+        playerProperties.active = true;
 	}
 
     private void Update()
     {
+        // set fly bar value
+        SetFlyBar();
+
+        // set health bar value
+        SetHealthBar();
+
+        // increasing counter 
+        counter += 1;
+
 		// cek state
 		if (Constants.gameState == Constants.GameState.Play )
 		{
@@ -51,10 +76,29 @@ public class PlayerMovement : MonoBehaviour
 			HandleFly();
 		} else if (Constants.gameState == Constants.GameState.Lose )
 		{
+            // set animator player death
             animator.Play("Character death");
-		} else 
-		{
-			animator.Play("Character Idle");
+
+            if (counter == countDown)
+            {
+                // showing option
+                option.active = true;
+
+                // set option text
+                message.text = "You Died";
+            }
+        } else
+        {
+            // set player idle
+            animator.Play("Character Idle");
+            
+            // showing option
+            option.active = true;
+
+            // set option text
+            message.text = "You Win";
+
+            Debug.Log("sd");
 		}
 
         if ( ! onFly && Constants.maxFly > Constants.flyPower )
@@ -64,12 +108,34 @@ public class PlayerMovement : MonoBehaviour
     }
 
     /**
+     * Set Slider Bar value
+     */
+     public void SetFlyBar ()
+     {
+        // getting bar value
+        float value = Constants.flyPower / Constants.maxFly;
+
+        flyBar.value = value;
+     }
+    /**
+     * Set Health Bar value
+     */
+     public void SetHealthBar ()
+    {
+
+        // getting bar value
+        float value = Constants.health / Constants.maxHealth;
+
+        healthBar.value = value;
+    }
+
+    /**
      * handle fly function
      */
     private void HandleFly()
     {
         // Check space pressed and not jump
-        if (Input.GetKey(KeyCode.Space) && !onJump && Constants.flyPower > 0)
+        if ((Input.GetKey(KeyCode.Space) || Input.GetKeyDown(KeyCode.JoystickButton3) ) && !onJump && Constants.flyPower > 0)
         {
             // Set fly to true
             onFly = true;
@@ -119,7 +185,7 @@ public class PlayerMovement : MonoBehaviour
     private void HandleJump()
     {
         // check up arrow pressed and checking if player is inground
-        if (Input.GetKeyDown(KeyCode.UpArrow) && GroundCheck())
+        if ((Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.JoystickButton0)) && GroundCheck())
         {
             // jumping player
             rb.AddForce(Vector3.up * jumpForce, ForceMode2D.Impulse);
@@ -187,17 +253,29 @@ public class PlayerMovement : MonoBehaviour
         // check if player is collision with finish object
         if ( tag.Equals("Finish"))
         {
+            // set win the game
             Constants.gameState = Constants.GameState.Win;
         }
 
         // check if player is collision with enemy object
         if ( tag.Equals("Enemy"))
         {
+            if (Constants.health > 0)
+            {
+                // set player hitted
+                Constants.playerHited = true;
 
-            // set player hitted
-            Constants.playerHited = true;
+                // update health
+                Constants.health -= GhostMovement.damage;
+            }
+            else
+            { 
+                // set count down
+                countDown = counter + 15;
 
-            //Constants.gameState = Constants.GameState.Lose;
+                // Set lose game state
+                Constants.gameState = Constants.GameState.Lose;
+            }
         }
     }
 

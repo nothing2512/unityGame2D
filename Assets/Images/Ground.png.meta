@@ -6,6 +6,7 @@ TextureImporter:
     21300002: Ground_1
     21300004: Ground_2
     21300006: Ground_3
+    21300008: boundary
   externalObjects: {}
   serializedVersion: 9
   mipmaps:
@@ -107,7 +108,7 @@ TextureImporter:
         width: 136
         height: 238
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -127,7 +128,7 @@ TextureImporter:
         width: 217
         height: 242
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -147,7 +148,7 @@ TextureImporter:
         width: 136
         height: 238
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -167,13 +168,33 @@ TextureImporter:
         width: 882
         height: 324
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
       spriteID: e8f1d30c6c8a5014281f519554ce392f
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: boundary
+      rect:
+        serializedVersion: 2
+        x: 441
+        y: 913
+        width: 216
+        height: 117
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8d0ad517b81e8154eb80dcbc9cc8a8d4
       vertices: []
       indices: 
       edges: []

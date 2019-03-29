@@ -10,6 +10,8 @@ public class GhostMovement : MonoBehaviour
     public List<Transform> wayPoints = new List<Transform>();
     public Transform player;
 
+    public static float damage = 20f;
+
     private int cPoint = 0;
     private int pointSize = 0;
 
